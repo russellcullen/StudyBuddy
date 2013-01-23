@@ -1,0 +1,11 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body(onload="setTimeout('proceed()', 0) ")
+  script
+    function proceed(){
+      opener.location.reload(true);
+      self.close();
+    }

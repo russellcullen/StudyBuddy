@@ -2,4 +2,15 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  if (typeof(everyauth.facebook) !== 'undefined')
+    p 
+     strong Hello #{everyauth.facebook.user.name}!
+  else 
+    p Welcome to #{title}
+    a(href="", onclick="popup('/auth/facebook')") Login with Facebook
+  script
+    function popup(url) {
+      newwindow=window.open(url,'name','height=200,width=150');
+      if (window.focus) {newwindow.focus()}
+      return false;
+    }
