@@ -8,24 +8,21 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
+  , auth = require('./lib/auth')
+  , mongoose = require('mongoose')
   , everyauth = require('everyauth');
 
-users = {}
 
-everyauth.everymodule
-  .findUserById( function (id, callback) {
-    callback(null, users[id]);
-  });
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/studybuddy');
+
+
+everyauth.everymodule.findUserById(auth.findUserById)
 
 everyauth.facebook
   .appId("121513184688795")
   .appSecret("3ddb937b0b0bd28c7900a17b66930819")
   .popup(true)
-  .findOrCreateUser( function (session, accessToken, accessTokExtra, fbUserMetadata) {
-    console.log(fbUserMetadata);
-    users[fbUserMetadata.id] = fbUserMetadata;
-    return users[fbUserMetadata.id];
-  })
+  .findOrCreateUser(auth.fbLogin)
   .redirectPath('/login');
 
 var app = express();
