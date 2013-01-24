@@ -5,16 +5,16 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , auth = require('./lib/auth')
+  , util = require('./lib/util')
   , mongoose = require('mongoose')
+  , flash = require('connect-flash')
   , everyauth = require('everyauth');
 
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/studybuddy');
-
 
 everyauth.everymodule.findUserById(auth.findUserById)
 
@@ -37,6 +37,8 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser()); 
   app.use(express.session({ secret: 'russell'}));
+  app.use(flash());
+  app.use(util.flashMiddleware);
   app.use(everyauth.middleware(app));
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
@@ -46,9 +48,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
-app.get('/login', routes.login);
-app.get('/users', user.list);
+routes.setRoutes(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

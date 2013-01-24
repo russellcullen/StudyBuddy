@@ -1,12 +1,13 @@
+var auth = require('../lib/auth');
+var home = require('./home');
 
 /*
- * GET home page.
+ * Sets all the routes
+ *   Params: app
  */
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
-
-exports.login = function(req, res){
-  res.render('login', { title: 'Express' });
+exports.setRoutes = function(app) {
+  app.get('/', home.index);
+    
+  app.get('/login', home.login);
+  app.get('/home', auth.requireLogin, home.home);
 };
