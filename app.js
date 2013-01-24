@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
+  , routes = require('./routes/routes')
   , http = require('http')
   , path = require('path')
   , auth = require('./lib/auth')

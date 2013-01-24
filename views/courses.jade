@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  for course in courses
+    .course
+      h3= course.name
+      p= course.desc

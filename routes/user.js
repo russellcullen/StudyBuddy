@@ -1,8 +1,15 @@
-
 /*
- * GET users listing.
+ * User related routes.
  */
+var models = require('../lib/models');
+var Course = models.Course;
 
-exports.list = function(req, res){
-  res.send("respond with a resource");
+exports.home = function(req, res){
+  res.render('home', { title: 'Home'});
+};
+
+exports.courses = function(req, res){
+  Course.find({ students : req.user._id }, function (err, courses) {
+    res.render('courses', { title : 'My Courses', courses : courses });
+  });
 };
