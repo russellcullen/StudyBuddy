@@ -5,11 +5,9 @@ block content
   if (errors)
     for error in errors
       .error= error
-  p= user
-  p= everyauth.user
   if (everyauth.loggedIn)
     p 
-     strong Hello #{everyauth.facebook.user.name}!
+     strong Hello #{user.name}!
     #home
       a(href="/home") Home
   else 

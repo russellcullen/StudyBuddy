@@ -40,6 +40,7 @@ app.configure(function(){
   app.use(flash());
   app.use(util.flashMiddleware);
   app.use(everyauth.middleware(app));
+  app.use(util.userMiddleware);
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });

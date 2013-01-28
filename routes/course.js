@@ -27,6 +27,17 @@ exports.save = function(req, res){
 }
 
 /*
+ * POST for joining course
+ */
+exports.join = function(req, res){
+  Course.findOne({ '_id' : req.body.courseId}, function (err, course) {
+    course.addStudent(req.user._id, function (err) {
+      res.redirect('/my-courses');
+    });
+  });
+}
+
+/*
  * GET show all courses
  */
 exports.public = function(req, res){
