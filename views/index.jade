@@ -12,11 +12,4 @@ block content
       a(href="/home") Home
   else 
     p Welcome to #{title}
-    a(href="", onclick="popup('/auth/facebook')") Login with Facebook
-
-  script
-    function popup(url) {
-      newwindow=window.open(url,'name','height=200,width=150');
-      if (window.focus) {newwindow.focus()}
-      return false;
-    }
+    a(href="/auth/facebook") Login with Facebook

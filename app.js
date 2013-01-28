@@ -21,9 +21,13 @@ everyauth.everymodule.findUserById(auth.findUserById)
 everyauth.facebook
   .appId("121513184688795")
   .appSecret("3ddb937b0b0bd28c7900a17b66930819")
-  .popup(true)
   .findOrCreateUser(auth.fbLogin)
-  .redirectPath('/login');
+  .sendResponse( function (res, data) {
+    var session = data.session;
+    var redirectTo = session.redirectTo;
+    delete session.redirectTo;
+    res.redirect(redirectTo || '/');
+  });
 
 var app = express();
 
