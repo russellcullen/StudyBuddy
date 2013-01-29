@@ -9,6 +9,11 @@ block content
     label(for='desc') Description
     textarea(name='desc', rows=4, cols=50)
 
+    select(name="status")
+      option(value="Taking") Taking
+      option(value="Helping") Helping
+      option(value="Done") Done
+
     label(for='privacy') Public?
     input(type="checkbox", name="privacy", value="true", checked)
 
