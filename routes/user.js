@@ -10,6 +10,7 @@ exports.home = function(req, res){
 
 exports.courses = function(req, res){
   Course.find({ students : req.user._id }, function (err, courses) {
+    if (err) return next(err);
     res.render('courses', { title : 'My Courses', courses : courses });
   });
 };
