@@ -1,8 +1,8 @@
 /*
  *  Routes related to courses
  */
-var async = require('async');
 var models = require('../lib/models');
+var db = require('../lib/db');
 var Course = models.Course;
 var Status = models.Status;
 
@@ -18,7 +18,7 @@ exports.create = function(req, res){
  * Create courses route.
  *    Type : POST
  */
-exports.save = function(req, res){
+exports.save = function(req, res, next){
   var course = new Course({
     name: req.body.title,
     desc: req.body.desc,
@@ -42,18 +42,9 @@ exports.save = function(req, res){
  * Join courses route.
  *    Type : POST
  */
-exports.join = function(req, res){
-  Course.findOne({ '_id' : req.body.courseId}, function (err, course) {
-    course.addStudent(req.user._id, function (err) {
-      if (err) return next(err);
-      var status = new Status({
-        course: course._id,
-        user: req.user._id,
-      });
-      status.save(function (err) {
-        res.redirect('/my-courses');
-      });
-    });
+exports.join = function(req, res, next){
+  db.joinCourse(req.body.courseId, req.user._id, function (err) {
+    res.redirect('/my-courses');
   });
 }
 
@@ -61,18 +52,9 @@ exports.join = function(req, res){
  * Course listing page.
  *    Type : GET
  */
-exports.public = function(req, res){
+exports.public = function(req, res, next){
   var page = req.query.page || 0;
-  Course.find({public : true}, null, {limit : 20, skip : page*20}, function (err, courses){
-    if (err) return next(err);
-    async.map(courses, function (course, cb) {
-      if (!req.loggedIn) return cb(err, course);
-      Status.findOne({'course' : course._id, 'user' : req.user._id}, function (err, status) {
-        if (status) course.status = status.status;
-        cb(err, course);
-      });
-    }, function (err, courses) {
-      res.render('courses', { title: 'Courses', courses: courses});
-    });
+  db.getCoursesWithStatus(req.user ? req.user._id : null, {public : true}, 20, page*20, function (err, courses) {
+    res.render('courses', { title: 'Courses', courses: courses});
   });
 }
