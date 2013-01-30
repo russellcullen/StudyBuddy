@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
   for course in courses
-    .course
+    .course(onclick="location.href='/course/"+course._id+"';")
       h3= course.name
       p= course.desc
       p= course.status

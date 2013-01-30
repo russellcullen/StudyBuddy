@@ -44,3 +44,16 @@ exports.public = function(req, res, next){
     res.render('courses', { title: 'Courses', courses: courses});
   });
 }
+
+/*
+ * Course page
+ *    Type : GET
+ */
+exports.page = function(req, res, next){
+  var id = req.params.id;
+  db.getCourse(id, function (err, course) {
+    if (err) return next(err);
+    if (!course) return res.redirect('/courses');
+    res.render('course', { title: course.name, course: course});
+  });
+}

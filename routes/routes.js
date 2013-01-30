@@ -21,4 +21,5 @@ exports.setRoutes = function(app) {
   app.get('/create-course', auth.requireLogin, course.create);
   app.post('/create-course', auth.requireLogin, course.save);
   app.post('/join-course', auth.requireLogin, course.join);
+  app.get('/course/:id', course.page);
 };
