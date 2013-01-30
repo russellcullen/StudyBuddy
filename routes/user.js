@@ -17,6 +17,7 @@ exports.home = function(req, res){
  */
 exports.courses = function(req, res, next){
   db.getCoursesWithStatus(req.user._id, { students : req.user._id }, 0, 0, function (err, courses) {
+    if (err) return next(err);
     res.render('courses', { title: 'My Courses', courses: courses});
   });
 };
