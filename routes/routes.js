@@ -15,6 +15,7 @@ exports.setRoutes = function(app) {
   // User pages
   app.get('/home', auth.requireLogin, user.home);
   app.get('/my-courses', auth.requireLogin, user.courses);
+  app.get('/user/:id', user.profile);
 
   // Course pages
   app.get('/courses', course.public);

@@ -24,3 +24,14 @@ exports.courses = function(req, res, next){
     res.render('courses', { title: 'My Courses', courses: courses});
   });
 };
+
+/*
+ * User profile page
+ *    Type : GET
+ */
+exports.profile = function (req, res, next) {
+  db.getUser(req.params.id, function (err, user) {
+    if (err) return next(err);
+    res.render('profile', {title : user.name, profile : user});
+  })
+}

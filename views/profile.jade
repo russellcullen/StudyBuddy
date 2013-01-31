@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  h3= profile.email
+  for course in profile.courses
+    p= course.name
+  for post in profile.posts
+    p= post.message
