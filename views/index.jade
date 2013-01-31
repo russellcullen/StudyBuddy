@@ -5,8 +5,6 @@ block content
   if (everyauth.loggedIn)
     p 
      strong Hello #{user.name}!
-    #home
-      a(href="/home") Home
   else 
     p Welcome to #{title}
     a(href="/auth/facebook") Login with Facebook

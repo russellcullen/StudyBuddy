@@ -5,9 +5,11 @@ block content
   h3= profile.email
   h2 Courses
   for course in profile.courses
-    p= course.name
-    h6= course.status
+    .course
+      p= course.name
+      h6= course.status
   h2 Posts
   for post in profile.posts
-    p= post.message
-    h6= post.course.name
+    .post
+      p= post.message
+      h6= post.course.name

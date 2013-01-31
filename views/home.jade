@@ -1,11 +1,22 @@
 extends layout
 
+block navigation
+  ul.nav.pull-right
+    li.dropdown
+      a(href="#", data-toggle="dropdown").dropdown-toggle #{user.name}
+        b.caret
+      ul.dropdown-menu
+        li
+          a(href='/create-course') Create a Course
+        li
+          a(href='/my-courses') View your courses
+        li
+          a(href='/courses') Browse Courses
+        li
+          a(href='/user/'+user._id) View profile
+
 block content
-  h1 Welcome #{everyauth.facebook.user.name}
-  a(href='/create-course') Create a Course!
-  a(href='/my-courses') View current courses!
-  a(href='/courses') Browse Courses!
-  a(href='/profile') View profile
+  h1 Welcome #{user.name}
   for post in posts
     .post
       h4 

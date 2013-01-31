@@ -10,10 +10,11 @@ block content
       if (!everyauth.loggedIn || course.students.indexOf(user._id) < 0)
         form(action='/join-course', method='POST')
           input(type="text", name="courseId", value=course._id, style="display: none;")
-          input(type='submit', value="Join Course!")
+          input(type='submit', value="Join Course!").btn
       else 
         form(action='/course/'+course._id+'/change-status', method='POST')
-          select(name="status")
+          select(name="status").input-small
             option(value="Enrolled", selected=("Enrolled"==course.status)) Enrolled
             option(value="Taken", selected=("Taken"==course.status)) Taken
-          input(type='submit', value="Change Status!")
+          label
+          input(type='submit', value="Change Status!").btn.btn-small

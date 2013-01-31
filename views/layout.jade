@@ -2,6 +2,22 @@ doctype 5
 html
   head
     title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    .navbar.navbar-static-top
+      .navbar-inner
+        .container
+          a(href='/').brand
+            strong StudyBuddy
+          ul.nav                                                                    
+            li
+              a(href="/home") Home
+          form.navbar-search.pull-left
+            input(type="text", placeholder="Search For Courses").search-query
+          block navigation
+    .container
+      block content
+
+    script(src="http://code.jquery.com/jquery-latest.js", type='text/javascript', charset='utf-8')
+    script(src='/javascripts/bootstrap.min.js', type='text/javascript')
