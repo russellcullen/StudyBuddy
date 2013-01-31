@@ -3,7 +3,11 @@ extends layout
 block content
   h1= title
   h3= profile.email
+  h2 Courses
   for course in profile.courses
     p= course.name
+    h6= course.status
+  h3 Posts
   for post in profile.posts
     p= post.message
+    h6= post.course.name
