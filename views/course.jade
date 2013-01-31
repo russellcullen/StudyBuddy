@@ -11,3 +11,7 @@ block content
         option(value="Taken", selected=("Taken"==course.status)) Taken
       input(type='submit', value="Change Status!")
     a(href='/course/'+course._id+'/broadcast') Send Broadcast for help!
+  for post in course.posts
+    .post
+      h4= post.author
+      p= post.message

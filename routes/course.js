@@ -51,7 +51,7 @@ exports.public = function(req, res, next){
  */
 exports.page = function(req, res, next){
   var id = req.params.id;
-  db.getCourse(id, req.loggedIn ? req.user._id : null, function (err, course) {
+  db.getCourseWithPosts(id, req.loggedIn ? req.user._id : null, function (err, course) {
     if (err) return next(err);
     if (!course) return res.redirect('/courses');
     res.render('course', { title: course.name, course: course});
@@ -70,10 +70,11 @@ exports.changeStatus = function(req, res, next){
 }
 
 /*
- * Create message page
+ * Create broadcast page
+ * TODO: Probably should just be part of course page.
  *    Type : GET
  */
-exports.broadcast = function(req, res, next){
+exports.createBroadcast = function(req, res, next){
   var id = req.params.id;
   db.getCourse(id, req.loggedIn ? req.user._id : null, function (err, course) {
     if (err) return next(err);
@@ -83,12 +84,12 @@ exports.broadcast = function(req, res, next){
 }
 
 /*
- * Send message page
+ * Send broadcast page
  *    Type : POST
  */
 exports.sendBroadcast = function(req, res, next){
   db.sendBroadcast(req.user._id, req.body.id, req.body.msg, function (err) {
     if (err) return next(err);
-    res.redirect('/home');
+    res.redirect('/course/'+req.body.id);
   });
 }

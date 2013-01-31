@@ -23,6 +23,6 @@ exports.setRoutes = function(app) {
   app.post('/join-course', auth.requireLogin, course.join);
   app.get('/course/:id', course.page);
   app.post('/course/:id/change-status', auth.requireLogin, course.changeStatus);
-  app.get('/course/:id/broadcast', auth.requireLogin, course.broadcast);
+  app.get('/course/:id/broadcast', auth.requireLogin, course.createBroadcast);
   app.post('/send-broadcast', auth.requireLogin, course.sendBroadcast);
 };
