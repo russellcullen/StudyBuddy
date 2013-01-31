@@ -21,6 +21,7 @@ everyauth.everymodule.findUserById(auth.findUserById)
 everyauth.facebook
   .appId("121513184688795")
   .appSecret("3ddb937b0b0bd28c7900a17b66930819")
+  .scope('email')
   .findOrCreateUser(auth.fbLogin)
   .sendResponse( function (res, data) {
     var session = data.session;
