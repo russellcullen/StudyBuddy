@@ -6,11 +6,3 @@ body {
 a {
   color: #00B7FF;
 }
-
-.error {
-	position: fixed;
-	left:50%;
-	top:10px;
-	color: #FF0000;
-	border: solid black 1px;
-}
