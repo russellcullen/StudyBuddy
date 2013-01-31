@@ -8,6 +8,7 @@ block content
   a(href='/profile') View profile
   for post in posts
     .post
-      h4= post.course.name
+      h4 
+        a(href='/course/'+post.course._id) #{post.course.name}
       p= post.message
       h6= post.from.name
