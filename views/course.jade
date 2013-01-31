@@ -10,3 +10,4 @@ block content
         option(value="Enrolled", selected=("Enrolled"==course.status)) Enrolled
         option(value="Taken", selected=("Taken"==course.status)) Taken
       input(type='submit', value="Change Status!")
+    a(href='/course/'+course._id+'/broadcast') Send Broadcast for help!

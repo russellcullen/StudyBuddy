@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 Send Broadcast
+  form(action='/send-broadcast', method='POST')
+    label(for='msg') Description
+    textarea(name='msg', rows=4, cols=50)
+    input(type="hidden", name="id", value=course._id)
+
+    input(type='submit', value="Submit")

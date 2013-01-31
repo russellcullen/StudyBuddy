@@ -68,3 +68,27 @@ exports.changeStatus = function(req, res, next){
     res.redirect('back');
   });
 }
+
+/*
+ * Create message page
+ *    Type : GET
+ */
+exports.broadcast = function(req, res, next){
+  var id = req.params.id;
+  db.getCourse(id, req.loggedIn ? req.user._id : null, function (err, course) {
+    if (err) return next(err);
+    if (!course) return res.redirect('/courses');
+    res.render('create-broadcast', { title: course.name, course: course});
+  });
+}
+
+/*
+ * Send message page
+ *    Type : POST
+ */
+exports.sendBroadcast = function(req, res, next){
+  db.sendBroadcast(req.user._id, req.body.id, req.body.msg, function (err) {
+    if (err) return next(err);
+    res.redirect('/home');
+  });
+}
