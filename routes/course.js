@@ -39,7 +39,7 @@ exports.join = function(req, res, next){
  */
 exports.public = function(req, res, next){
   var page = req.query.page || 0;
-  db.getCoursesWithStatus(req.user ? req.user._id : null, {public : true}, 20, page*20, function (err, courses) {
+  db.getCoursesWithStatus(req.loggedIn ? req.user._id : null, {public : true}, 20, page*20, function (err, courses) {
     if (err) return next(err);
     res.render('courses', { title: 'Courses', courses: courses});
   });
@@ -51,9 +51,20 @@ exports.public = function(req, res, next){
  */
 exports.page = function(req, res, next){
   var id = req.params.id;
-  db.getCourse(id, function (err, course) {
+  db.getCourse(id, req.loggedIn ? req.user._id : null, function (err, course) {
     if (err) return next(err);
     if (!course) return res.redirect('/courses');
     res.render('course', { title: course.name, course: course});
+  });
+}
+
+/*
+ * Update status endpoint
+ *    Type : POST
+ */
+exports.changeStatus = function(req, res, next){
+  db.updateStatus(req.params.id, req.user._id, req.body.status, function (err) {
+    if (err) return next(err);
+    res.redirect('back');
   });
 }

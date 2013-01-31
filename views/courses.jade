@@ -11,3 +11,9 @@ block content
         form(action='/join-course', method='POST')
           input(type="text", name="courseId", value=course._id, style="display: none;")
           input(type='submit', value="Join Course!")
+      else 
+        form(action='/course/'+course._id+'/change-status', method='POST')
+          select(name="status")
+            option(value="Enrolled", selected=("Enrolled"==course.status)) Enrolled
+            option(value="Taken", selected=("Taken"==course.status)) Taken
+          input(type='submit', value="Change Status!")

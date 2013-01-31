@@ -3,3 +3,10 @@ extends layout
 block content
   h1= title
   h3= course.desc
+  if (course.status) 
+    p You're status is: #{course.status}
+    form(action='/course/'+course._id+'/change-status', method='POST')
+      select(name="status")
+        option(value="Enrolled", selected=("Enrolled"==course.status)) Enrolled
+        option(value="Taken", selected=("Taken"==course.status)) Taken
+      input(type='submit', value="Change Status!")
