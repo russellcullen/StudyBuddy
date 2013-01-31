@@ -8,8 +8,11 @@ var db = require("../lib/db");
  *    Type : GET
  */
 exports.home = function(req, res){
-  res.render('home', { title: 'Home'});
+  db.getFeed(req.user._id, function (err, posts) {
+    res.render('home', { title: 'Home', posts: posts});
+  });
 };
+  
 
 /*
  * User courses page.

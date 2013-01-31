@@ -6,3 +6,8 @@ block content
   a(href='/my-courses') View current courses!
   a(href='/courses') Browse Courses!
   a(href='/profile') View profile
+  for post in posts
+    .post
+      h4= post.course.name
+      p= post.message
+      h6= post.from.name

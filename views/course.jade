@@ -13,5 +13,5 @@ block content
     a(href='/course/'+course._id+'/broadcast') Send Broadcast for help!
   for post in course.posts
     .post
-      h4= post.author
+      h4= post.from.name
       p= post.message
