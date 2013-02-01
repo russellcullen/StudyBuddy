@@ -15,7 +15,25 @@ html
               a(href="/home") Home
           form.navbar-search.pull-left
             input(type="text", placeholder="Search For Courses").search-query
-          block navigation
+          ul.nav.pull-right
+            block navigation
+            if (everyauth.loggedIn)
+              li.dropdown
+                a(href="#", data-toggle="dropdown").dropdown-toggle
+                  img(src=user.gravatar+"&s=22").gravatar
+                  div.pull-right #{user.name + " "}
+                    b.caret
+                ul.dropdown-menu
+                  li
+                    a(href='/create-course') Create a Course
+                  li
+                    a(href='/my-courses') View your courses
+                  li
+                    a(href='/courses') Browse Courses
+                  li
+                    a(href='/user/'+user._id) View profile
+                  li
+                    a(href='/logout') Logout
     .container
       block content
 

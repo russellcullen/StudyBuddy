@@ -1,8 +1,8 @@
 extends layout
 
 block content
+  img(src=profile.gravatar+"&s=175").img-polaroid
   h1= title
-  h3= profile.email
   h2 Courses
   for course in profile.courses
     .course
