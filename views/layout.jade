@@ -4,6 +4,8 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="http://code.jquery.com/jquery-latest.js", type='text/javascript', charset='utf-8')
+    script(src='/javascripts/bootstrap.min.js', type='text/javascript')
   body
     .navbar.navbar-static-top
       .navbar-inner
@@ -36,6 +38,3 @@ html
                     a(href='/logout') Logout
     .container
       block content
-
-    script(src="http://code.jquery.com/jquery-latest.js", type='text/javascript', charset='utf-8')
-    script(src='/javascripts/bootstrap.min.js', type='text/javascript')

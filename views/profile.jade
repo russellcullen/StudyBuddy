@@ -1,7 +1,11 @@
 extends layout
 
 block content
-  img(src=profile.gravatar+"&s=175").img-polaroid
+  if (everyauth.loggedIn && (String(user._id) == String(profile._id)))
+    a(href="http://gravatar.com/emails")
+      img(src=profile.gravatar+"&s=175", data-placement="bottom", title="Change your avatar at gravatar.com").img-polaroid#profile
+  else 
+    img(src=profile.gravatar+"&s=175").img-polaroid
   h1= title
   h2 Courses
   for course in profile.courses
@@ -13,3 +17,6 @@ block content
     .post
       p= post.message
       h6= post.course.name
+
+  script
+    $('#profile').tooltip();
