@@ -2,6 +2,7 @@ var auth = require('../lib/auth');
 var main = require('./main');
 var user = require('./user');
 var course = require('./course');
+var api = require('./api');
 
 /*
  * Sets all the routes
@@ -26,4 +27,7 @@ exports.setRoutes = function(app) {
   app.post('/course/:id/change-status', auth.requireLogin, course.changeStatus);
   app.get('/course/:id/broadcast', auth.requireLogin, course.createBroadcast);
   app.post('/send-broadcast', auth.requireLogin, course.sendBroadcast);
+
+  // API
+  app.get('/api/feed', auth.requireLogin, api.feed);
 };
