@@ -4,38 +4,13 @@ block content
   h1 Welcome #{user.name}
   #feed
     for post in posts
-      .post
+      .post(id=post._id)
         h4 
           a(href='/course/'+post.course._id) #{post.course.name}
         p= post.message
         h6= post.from.name
 
   script
-    function poll(){
-      $.ajax({ 
-        url: "/api/feed", 
-        success: function(data){
-          updateFeed(data);
-          setTimeout('poll()', 5000);
-        }, 
-        dataType: "json",
-        timeout: 30000 
-      });
-    };
-    function updateFeed(posts) {
-      $('#feed').empty()
-      posts.forEach(function (post) {
-        $('#feed').append(createPost(post));
-      });
-    }
-    function createPost(post) {
-      var $post = $('<div class="post"></div>');
-      $post.append("<h4><a href='/course/"+post.course._id+"'>"+post.course.name+"</a></h4>");
-      $post.append("<p>"+post.message+"</p>");
-      $post.append("<h6>"+post.from.name+"</h6>");
-      return $post;
-    }
-
     $(document).ready(function() {
-        poll();
+        pollFeed();
     });
