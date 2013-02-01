@@ -11,8 +11,22 @@ block content
         option(value="Taken", selected=("Taken"==course.status)) Taken
       label
       input(type='submit', value="Change Status!").btn.btn-small
-    a(href='/course/'+course._id+'/broadcast').btn.btn-primary Send Broadcast for help!
+    a(href='#broadcastModal', role="button", data-toggle="modal").btn.btn-primary Send Broadcast
   for post in course.posts
     .post
       h4= post.from.name
       p= post.message
+
+
+ 
+
+  div(tabindex="-1", role="dialog", aria-labelledby="modalLabel", aria-hidden="true").modal.hide.fade#broadcastModal
+    .modal-header
+      button(type="button",data-dismiss="modal", aria-hidden="true").close &times;
+      h3.modalLabel Send Message
+    .modal-body
+      form(action='/send-broadcast', method='POST')
+        textarea(name='msg', rows=5).modal-textarea
+        input(type="hidden", name="id", value=course._id)
+        label
+        input(type='submit', value="Submit").btn.btn-primary.pull-right
