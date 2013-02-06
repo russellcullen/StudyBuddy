@@ -38,6 +38,9 @@ html
                     a(href='/user/'+user._id) View profile
                   li
                     a(href='/logout') Logout
+            else
+              li
+                a(href="/auth/facebook") Login
     .container
       .content
         block content

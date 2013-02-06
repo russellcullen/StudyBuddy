@@ -27,7 +27,7 @@ everyauth.facebook
     var session = data.session;
     var redirectTo = session.redirectTo;
     delete session.redirectTo;
-    res.redirect(redirectTo || '/');
+    res.redirect(redirectTo || 'back');
   });
 
 var app = express();
