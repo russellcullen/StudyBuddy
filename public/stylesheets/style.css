@@ -4,11 +4,19 @@ body {
  }
 
 .post {
-	border: 1px black dashed;
+  padding-left: 10px;
+  border-top: 1px solid #ddd;
 }
 
 .course {
-	border: 1px black dashed;
+  cursor: pointer;
+  padding-left: 10px;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #fff;
+  background-color: #eee;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 .course:hover {
@@ -20,6 +28,11 @@ textarea.modal-textarea {
   -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
   -moz-box-sizing: border-box; /* FF1+ */
   box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1*/
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
 }
 
 .gravatar {
