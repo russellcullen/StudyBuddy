@@ -23,6 +23,10 @@ body {
   background-color: #ddd;
 }
 
+.profile-small {
+  padding: 2px;
+}
+
 textarea.modal-textarea {
   width: 100%;
   -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */

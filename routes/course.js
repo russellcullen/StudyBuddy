@@ -51,7 +51,7 @@ exports.public = function(req, res, next){
  */
 exports.page = function(req, res, next){
   var id = req.params.id;
-  db.getCourseWithPosts(id, req.loggedIn ? req.user._id : null, function (err, course) {
+  db.getFullCourse(id, req.loggedIn ? req.user._id : null, function (err, course) {
     if (err) return next(err);
     if (!course) return res.redirect('/courses');
     res.render('course', { title: course.name, course: course});

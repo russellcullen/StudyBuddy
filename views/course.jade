@@ -12,6 +12,12 @@ block content
       label
       input(type='submit', value="Change Status!").btn.btn-small
     a(href='#broadcastModal', role="button", data-toggle="modal").btn.btn-primary Send Broadcast
+
+  h2 Other Students
+  for student in course.students
+    a(href='/user/'+student._id)
+      img(src=student.gravatar+"&s=40", data-placement="bottom", title=student.name).profile-small
+
   for post in course.posts
     .post
       h4= post.from.name
@@ -28,3 +34,6 @@ block content
         input(type="hidden", name="id", value=course._id)
         label
         input(type='submit', value="Submit").btn.btn-primary.pull-right
+
+  script
+    $('.profile-small').tooltip();
