@@ -27,6 +27,12 @@ body {
   padding: 2px;
 }
 
+.profile-left {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
 textarea.modal-textarea {
   width: 100%;
   -webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
@@ -37,6 +43,9 @@ textarea.modal-textarea {
 .content {
   background-color: #fff;
   padding: 20px;
+  -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.6);
 }
 
 .gravatar {

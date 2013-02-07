@@ -5,11 +5,17 @@ block content
   #feed
     for post in posts
       .post(id=post._id)
-        a(href='#removeModal', role="button", data-toggle="modal", data-id=String(post._id)).close.remove-post &times;
-        h4 
-          a(href='/course/'+post.course._id) #{post.course.name}
-        p= post.message
-        h6= post.from.name
+        .row
+          if (String(user._id) == String(post.from._id))
+            a(href='#removeModal', role="button", data-toggle="modal", data-id=String(post._id)).close.remove-post &times;
+          a(href='/user/'+post.from._id)
+            img(src=post.from.gravatar+"&s=40").pull-left.profile-left
+          strong
+            a(href='/user/'+post.from._id) #{post.from.name}
+          |  posted to 
+          strong
+            a(href='/course/'+post.course._id) #{post.course.name}
+          p= post.message
 
   .modal.hide.fade#removeModal
     .modal-header
@@ -25,7 +31,7 @@ block content
 
   script
     $(document).ready(function() {
-      pollFeed();
+      pollFeed("#{user._id}");
       $('.remove-post').on('click', function() {
         var id = $(this).data('id');
         $('#post-input').val(id);
