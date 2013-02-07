@@ -36,4 +36,14 @@ block content
         var id = $(this).data('id');
         $('#post-input').val(id);
       });
+      $('#remove-form').submit(function () {
+        $('#removeModal').modal('hide');
+        $.post("/remove-post", $("#remove-form").serialize(), function (data) {
+          var post = $('#'+$('#post-input').val())
+          post.hide('slow', function () {
+            post.remove();
+          });
+        });
+        return false;
+      });
     });

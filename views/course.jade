@@ -19,16 +19,17 @@ block content
       a(href='/user/'+student._id)
         img(src=student.gravatar+"&s=40", data-placement="bottom", title=student.name).profile-small
 
-  for post in course.posts
-    .post
-      .row
-        if (everyauth.loggedIn && String(post.from._id) == String(user._id))
-          a(href='#removeModal', role="button", data-toggle="modal", data-id=String(post._id)).close.remove-post &times;
-        a(href='/user/'+post.from._id)
-          img(src=post.from.gravatar+"&s=40").pull-left.profile-left
-        strong
-            a(href='/user/'+post.from._id) #{post.from.name}
-        p= post.message
+  #posts
+    for post in course.posts
+      .post(id=post._id)
+        .row
+          if (everyauth.loggedIn && String(post.from._id) == String(user._id))
+            a(href='#removeModal', role="button", data-toggle="modal", data-id=String(post._id)).close.remove-post &times;
+          a(href='/user/'+post.from._id)
+            img(src=post.from.gravatar+"&s=40").pull-left.profile-left
+          strong
+              a(href='/user/'+post.from._id) #{post.from.name}
+          p= post.message
 
 
   div(tabindex="-1", role="dialog", aria-labelledby="modalLabel", aria-hidden="true").modal.hide.fade#broadcastModal
@@ -36,11 +37,11 @@ block content
       button(type="button",data-dismiss="modal", aria-hidden="true").close &times;
       h3.modalLabel Send Message
     .modal-body
-      form(action='/send-broadcast', method='POST')
-        textarea(name='msg', rows=5).modal-textarea
+      form(action='/send-broadcast', method='POST')#send-form
+        textarea(name='msg', rows=5).modal-textarea#msg
         input(type="hidden", name="id", value=course._id)
-        label
-        input(type='submit', value="Submit").btn.btn-primary.pull-
+    .modal-footer
+      button(type='submit', form="send-form").btn.btn-primary Submit
 
   .modal.hide.fade#removeModal
     .modal-header
@@ -61,5 +62,25 @@ block content
       $('.remove-post').on('click', function() {
         var id = $(this).data('id');
         $('#post-input').val(id);
+      });
+      $('#remove-form').submit(function () {
+        $('#removeModal').modal('hide');
+        $.post("/remove-post", $("#remove-form").serialize(), function (data) {
+          var post = $('#'+$('#post-input').val())
+          post.hide('slow', function () {
+            post.remove();
+          });
+        });
+        return false;
+      });
+      $('#send-form').submit(function () {
+        $('#broadcastModal').modal('hide');
+        $.post("/send-broadcast", $("#send-form").serialize(), function (data) {
+          $('#msg').val('');
+          var post = createCoursePost(data);
+          $('#posts').prepend(post);
+          post.show('slow');
+        });
+        return false;
       });
     });

@@ -88,9 +88,10 @@ exports.createBroadcast = function(req, res, next){
  *    Type : POST
  */
 exports.sendBroadcast = function(req, res, next){
-  db.sendBroadcast(req.user._id, req.body.id, req.body.msg, function (err) {
+  db.sendBroadcast(req.user._id, req.body.id, req.body.msg, function (err, post) {
     if (err) return next(err);
-    res.redirect('/course/'+req.body.id);
+    res.json(post)
+    // res.redirect('/course/'+req.body.id);
   });
 }
 
