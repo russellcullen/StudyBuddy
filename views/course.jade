@@ -15,15 +15,20 @@ block content
 
   h2 Other Students
   for student in course.students
-    a(href='/user/'+student._id)
-      img(src=student.gravatar+"&s=40", data-placement="bottom", title=student.name).profile-small
+    if (!(everyauth.loggedIn && String(user._id) == String(student._id)))
+      a(href='/user/'+student._id)
+        img(src=student.gravatar+"&s=40", data-placement="bottom", title=student.name).profile-small
 
   for post in course.posts
     .post
-      if (everyauth.loggedIn && String(post.from._id) == String(user._id))
-        a(href='#removeModal', role="button", data-toggle="modal", data-id=String(post._id)).close.remove-post &times;
-      h4= post.from.name
-      p= post.message
+      .row
+        if (everyauth.loggedIn && String(post.from._id) == String(user._id))
+          a(href='#removeModal', role="button", data-toggle="modal", data-id=String(post._id)).close.remove-post &times;
+        a(href='/user/'+post.from._id)
+          img(src=post.from.gravatar+"&s=40").pull-left.profile-left
+        strong
+            a(href='/user/'+post.from._id) #{post.from.name}
+        p= post.message
 
 
   div(tabindex="-1", role="dialog", aria-labelledby="modalLabel", aria-hidden="true").modal.hide.fade#broadcastModal
