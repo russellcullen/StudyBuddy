@@ -11,16 +11,16 @@ var express = require('express')
   , util = require('./lib/util')
   , mongoose = require('mongoose')
   , flash = require('connect-flash')
-  , everyauth = require('everyauth');
-
+  , everyauth = require('everyauth')
+  , conf = require('./conf');
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/studybuddy');
 
 everyauth.everymodule.findUserById(auth.findUserById)
 
 everyauth.facebook
-  .appId("121513184688795")
-  .appSecret("3ddb937b0b0bd28c7900a17b66930819")
+  .appId(conf.fbAppId)
+  .appSecret(conf.fbAppSecret)
   .scope('email')
   .findOrCreateUser(auth.fbLogin)
   .sendResponse( function (res, data) {
