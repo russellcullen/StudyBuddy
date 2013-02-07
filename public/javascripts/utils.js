@@ -5,6 +5,12 @@
   // Creates a post div from post JSON
   window.createFeedPost = function (post) {
     var $post = $('<div style="display: none;" class="post" id="' + post._id + '"></div>');
+    $close = $("<a href='#removeModal' role='button' data-toggle='modal' data-id='" + post._id + "' class='close remove-post'> &times;</a>")
+    $close.on('click', function() {
+      var id = $(this).data('id');
+      $('#post-input').val(id);
+    });
+    $post.append($close);
     $post.append("<h4><a href='/course/"+post.course._id+"'>"+post.course.name+"</a></h4>");
     $post.append("<p>"+post.message+"</p>");
     $post.append("<h6>"+post.from.name+"</h6>");
