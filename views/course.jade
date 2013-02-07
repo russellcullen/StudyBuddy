@@ -58,6 +58,7 @@ block content
 
   script
     $(document).ready(function() {
+      pollCourseFeed("#{user ? user._id : undefined}", "#{course._id}");
       $('.profile-small').tooltip();
       $('.remove-post').on('click', function() {
         var id = $(this).data('id');
@@ -77,7 +78,7 @@ block content
         $('#broadcastModal').modal('hide');
         $.post("/send-broadcast", $("#send-form").serialize(), function (data) {
           $('#msg').val('');
-          var post = createCoursePost(data);
+          var post = createCoursePost(data, '#{user ? user._id : undefined}');
           $('#posts').prepend(post);
           post.show('slow');
         });

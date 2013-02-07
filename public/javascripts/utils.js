@@ -26,17 +26,19 @@
     return $outer;
   }
 
-  window.createCoursePost = function (post) {
+  window.createCoursePost = function (post, userId) {
     var $outer = $('<div style="display: none;" class="post" id="' + post._id + '"></div>');
     var $post = $('<div class="row"></div>');
     $outer.append($post);
-    $close = $("<a href='#removeModal' role='button' data-toggle='modal' data-id='" + 
-      post._id + "' class='close remove-post'> &times;</a>")
-    $close.on('click', function() {
-      var id = $(this).data('id');
-      $('#post-input').val(id);
-    });
-    $post.append($close);
+    if (String(post.from._id) == String(userId)) {
+      $close = $("<a href='#removeModal' role='button' data-toggle='modal' data-id='" + 
+        post._id + "' class='close remove-post'> &times;</a>")
+      $close.on('click', function() {
+        var id = $(this).data('id');
+        $('#post-input').val(id);
+      });
+      $post.append($close);
+    }
     $post.append("<a href='/user/"+post.from._id+"'><img src='"+ 
       post.from.gravatar + "&s=40' class='pull-left profile-left'></img></a></h4>");
     $post.append("<strong><a href='/user/"+post.from._id+"'>"+post.from.name+"</a></strong>");
@@ -58,6 +60,23 @@
     });
     tmp.forEach(function (post) {
       $('#feed').prepend(post);
+      post.show('slow');
+    });
+  }
+
+  // Adds new posts from JSON Array of posts to div with id of feed
+  window.updateCourseFeed = function (posts, userId) {
+    tmp = []
+    posts.some(function (post) {
+      if ($('#' + post._id).length > 0) {
+        return true;
+      } else {
+        var $post = createCoursePost(post, userId);
+        tmp.unshift($post)
+      }
+    });
+    tmp.forEach(function (post) {
+      $('#posts').prepend(post);
       post.show('slow');
     });
   }

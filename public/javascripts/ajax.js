@@ -15,4 +15,18 @@
       timeout: 30000 
     });
   };
+
+  window.pollCourseFeed = function (userId, courseId) {
+    $.ajax({ 
+      url: "/api/course-feed/"+courseId, 
+      success: function(data, status, res){
+        updateCourseFeed(data, userId);
+        setTimeout(function() {
+          pollCourseFeed(userId, courseId);
+        }, 5000);
+      }, 
+      dataType: "json",
+      timeout: 30000 
+    });
+  };
 })(window)

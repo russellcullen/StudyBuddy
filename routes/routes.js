@@ -31,4 +31,5 @@ exports.setRoutes = function(app) {
 
   // API
   app.get('/api/feed', auth.requireLogin, api.feed);
+  app.get('/api/course-feed/:id', api.courseFeed);
 };
