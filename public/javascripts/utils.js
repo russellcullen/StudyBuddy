@@ -3,12 +3,11 @@
  */
 (function(window) {
   // Creates a post div from post JSON
-  window.createPost = function (post) {
+  window.createFeedPost = function (post) {
     var $post = $('<div style="display: none;" class="post" id="' + post._id + '"></div>');
     $post.append("<h4><a href='/course/"+post.course._id+"'>"+post.course.name+"</a></h4>");
     $post.append("<p>"+post.message+"</p>");
     $post.append("<h6>"+post.from.name+"</h6>");
-    $.data($post, 'id', post._id);
     return $post;
   }
 
@@ -16,7 +15,7 @@
   window.updateFeed = function (posts) {
     tmp = []
     posts.some(function (post) {
-      var $post = createPost(post);
+      var $post = createFeedPost(post);
       if ($('#' + post._id).length > 0) {
         return true;
       } else {

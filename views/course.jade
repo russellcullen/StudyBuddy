@@ -20,6 +20,8 @@ block content
 
   for post in course.posts
     .post
+      if (everyauth.loggedIn && String(post.from._id) == String(user._id))
+        a(href='#removeModal', role="button", data-toggle="modal", data-id=String(post._id)).close.remove-post &times;
       h4= post.from.name
       p= post.message
 
@@ -33,7 +35,27 @@ block content
         textarea(name='msg', rows=5).modal-textarea
         input(type="hidden", name="id", value=course._id)
         label
-        input(type='submit', value="Submit").btn.btn-primary.pull-right
+        input(type='submit', value="Submit").btn.btn-primary.pull-
+
+  .modal.hide.fade#removeModal
+    .modal-header
+      button(type="button",data-dismiss="modal", aria-hidden="true").close &times;
+      h3.modalLabel Remove Post
+    .modal-body
+      p You are about to remove this post. Are you sure?
+      form(action='/remove-post', method='POST', style="display: none;")#remove-form
+        input(type="hidden", name="id")#post-input
+    .modal-footer
+      button(type="button",data-dismiss="modal", aria-hidden="true").btn Cancel
+      button(type="submit", form="remove-form").btn-danger.btn Delete
+
 
   script
-    $('.profile-small').tooltip();
+    $(document).ready(function() {
+      $('.profile-small').tooltip();
+      $('.remove-post').on('click', function() {
+        var id = $(this).data('id');
+        $('#post-input').val(id);
+        console.log($('#post-input').val());
+      });
+    });

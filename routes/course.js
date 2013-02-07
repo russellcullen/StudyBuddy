@@ -84,12 +84,23 @@ exports.createBroadcast = function(req, res, next){
 }
 
 /*
- * Send broadcast page
+ * Send broadcast url
  *    Type : POST
  */
 exports.sendBroadcast = function(req, res, next){
   db.sendBroadcast(req.user._id, req.body.id, req.body.msg, function (err) {
     if (err) return next(err);
     res.redirect('/course/'+req.body.id);
+  });
+}
+
+/*
+ * Remove post url
+ *    Type : POST
+ */
+exports.removePost = function(req, res, next){
+  db.removePost(req.user._id, req.body.id, function (err) {
+    if (err) return next(err);
+    res.redirect('back');
   });
 }

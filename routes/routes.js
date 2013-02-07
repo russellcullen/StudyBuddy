@@ -27,6 +27,7 @@ exports.setRoutes = function(app) {
   app.post('/course/:id/change-status', auth.requireLogin, course.changeStatus);
   app.get('/course/:id/broadcast', auth.requireLogin, course.createBroadcast);
   app.post('/send-broadcast', auth.requireLogin, course.sendBroadcast);
+  app.post('/remove-post', auth.requireLogin, course.removePost);
 
   // API
   app.get('/api/feed', auth.requireLogin, api.feed);
