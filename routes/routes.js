@@ -33,3 +33,10 @@ exports.setRoutes = function(app) {
   app.get('/api/feed', auth.privateAPI, auth.requireLogin, api.feed);
   app.get('/api/course-feed/:id', auth.privateAPI, api.courseFeed);
 };
+
+/*
+ * 404 page for everything else
+ */
+exports.pageNotFound = function (req, res) {
+  res.status(404).render('404', {title : '404'});
+}

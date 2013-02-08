@@ -48,6 +48,8 @@ app.configure(function(){
   app.use(util.userMiddleware);
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
+  // This must be last.
+  app.use(routes.pageNotFound);
 });
 
 app.configure('development', function(){
