@@ -30,6 +30,6 @@ exports.setRoutes = function(app) {
   app.post('/remove-post', auth.requireLogin, course.removePost);
 
   // API
-  app.get('/api/feed', auth.requireLogin, auth.privateAPI, api.feed);
+  app.get('/api/feed', auth.privateAPI, auth.requireLogin, api.feed);
   app.get('/api/course-feed/:id', auth.privateAPI, api.courseFeed);
 };
