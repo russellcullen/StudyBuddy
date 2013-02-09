@@ -9,14 +9,15 @@ block content
   h1= title
   h2 Courses
   for course in profile.courses
-    .course
+    .course(onclick="location.href='/course/"+course._id+"';")
       p= course.name
       h6= course.status
   h2 Posts
   for post in profile.posts
     .post
+      strong Posted to 
+        a(href='/course/'+post.course._id) #{post.course.name}
       p= post.message
-      h6= post.course.name
 
   script
     $(document).ready(function() {
